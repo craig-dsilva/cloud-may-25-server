@@ -29,13 +29,14 @@ try {
   throw error;
 }
 
-const secret = response.SecretString;
-
-console.log(secret);
+const db_url = response.SecretString;
 
 const app = express();
 const pgClient = new Client({
-  connectionString: secret,
+  connectionString: db_url,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 await pgClient
